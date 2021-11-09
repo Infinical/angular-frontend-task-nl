@@ -1,0 +1,74 @@
+<div class="container-fluid mt-1">
+
+<input
+  type="text"
+  placeholder="Search"
+  [(ngModel)]="search"
+  class="form-control"
+/>
+
+<table class="table table-hover ">
+  <thead>
+    <th resizable>Name</th>
+    <th resizable>Type</th>
+    <th resizable>Email</th>
+    <th resizable>Phone</th>
+    <th resizable>Company</th>
+    <th resizable>Address</th>
+  </thead>
+
+  <tbody>
+    <ng-container
+      *ngFor="let item of data | search: search; let i = index; let last = last"
+    >
+      <ng-template
+        *ngTemplateOutlet="
+          tableRow;
+          context: { $implicit: item, i: i, level: 0 }
+        "
+      ></ng-template>
+    </ng-container>
+  </tbody>
+</table>
+
+<ng-template #tableRow let-item let-i="i" let-level="level">
+  <tr>
+    <td>
+      <a
+        href="javascript:void(0)"
+        (click)="item.expandChildren = !item.expandChildren"
+        ><i class="bi bi-arrow-right-short"></i
+      ></a>
+      {{ item.name }}
+    </td>
+    <td>{{ item.type }}</td>
+    <td>{{ item.email }}</td>
+    <td>{{ item.phoneNo }}</td>
+    <td>{{ item.companyName }}</td>
+    <td>{{ item.address }}</td>
+    <td>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" >Edit</button>
+        <button type="button" class="btn btn-primary">Delete</button>
+      </div>
+    </td>
+  </tr>
+  
+  <ng-container *ngIf="item.expandChildren">
+    <ng-container
+      *ngFor="
+        let childItem of item.children;
+        let i = index;
+        let last = last
+      "
+    >
+      <ng-template
+        *ngTemplateOutlet="
+          tableRow;
+          context: { $implicit: childItem, i: i, level: 0 }
+        "
+      ></ng-template>
+    </ng-container>
+  </ng-container>
+</ng-template>
+</div>

@@ -1,0 +1,9 @@
+tr:hover .btn-group {
+    display: block;
+
+    flex-direction: row;
+}
+
+.btn-group{
+    display: none;
+}

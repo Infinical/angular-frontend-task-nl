@@ -1,0 +1,10 @@
+<!-- template for resizing in the header cell -->
+
+<div class="wrapper">
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+    <div class="bar" (resizable)="onResize($event)">
+        <i class="bi bi-grip-vertical"></i>
+    </div>
+  </div>
